@@ -1,0 +1,174 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   TOKENS — "Archive" palette
+   Dark: near-black ground, warm cream ink, amber→terracotta accent
+   Light: warm paper ground, espresso ink, same accent family
+   ============================================================ */
+
+:root {
+  --background: #FAF6F0;
+  --foreground: #2A1F18;
+
+  --card: #FFFFFF;
+  --card-foreground: #2A1F18;
+
+  --muted: #EFE6D8;
+  --muted-foreground: #6B5C4D;
+
+  --accent: #AD5820;
+  --accent-foreground: #FAF6F0;
+  --accent-soft: #C9692A;
+
+  --border: #E2D5C2;
+  --ring: #C9692A;
+
+  --plate: #FFFFFF;
+  --plate-border: #E2D5C2;
+
+  --radius: 0.5rem;
+
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", Consolas, "Liberation Mono", monospace;
+}
+
+.dark {
+  --background: #181210;
+  --foreground: #F4EDE4;
+
+  --card: #1F1815;
+  --card-foreground: #F4EDE4;
+
+  --muted: #241B17;
+  --muted-foreground: #A89683;
+
+  --accent: #E08A3E;
+  --accent-foreground: #1A1410;
+  --accent-soft: #C9692A;
+
+  --border: #332620;
+  --ring: #E08A3E;
+
+  --plate: #1F1815;
+  --plate-border: #332620;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-plate: var(--plate);
+  --color-plate-border: var(--plate-border);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .grain-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.045;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .dark .grain-overlay {
+    opacity: 0.06;
+  }
+
+  .rule {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--border) 15%,
+      var(--border) 85%,
+      transparent
+    );
+  }
+
+  .accent-gradient-text {
+    background: linear-gradient(120deg, var(--accent-soft), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .plate {
+    background: var(--plate);
+    border: 1px solid var(--plate-border);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .group:hover .plate {
+    transform: translateY(-6px) rotate(1.2deg);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--plate-border));
+    box-shadow: 
+      0 20px 40px -15px rgba(0, 0, 0, 0.3),
+      0 0 50px -10px color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
