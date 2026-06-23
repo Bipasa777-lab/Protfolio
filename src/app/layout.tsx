@@ -15,6 +15,7 @@ import "@fontsource/inter/700.css";
 import "@fontsource/jetbrains-mono/400.css";
 import "@fontsource/jetbrains-mono/500.css";
 
+import { ScrollProgressBar } from "@/components/ui/animations";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -41,6 +42,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          <ScrollProgressBar />
           <div className="grain-overlay" />
           {children}
         </ThemeProvider>

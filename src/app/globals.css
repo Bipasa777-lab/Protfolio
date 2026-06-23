@@ -147,14 +147,29 @@
     color: transparent;
   }
 
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
   .plate {
     background: var(--plate);
     border: 1px solid var(--plate-border);
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .group:hover .plate {
+  .plate.tilt-active {
+    transition: border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .group:hover .plate:not(.tilt-active) {
     transform: translateY(-6px) rotate(1.2deg);
+  }
+
+  .group:hover .plate {
     border-color: color-mix(in srgb, var(--accent) 45%, var(--plate-border));
     box-shadow: 
       0 20px 40px -15px rgba(0, 0, 0, 0.3),
